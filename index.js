@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 
 const currentdate = new Date();
-const date = currentdate.getDate() + "-" + currentdate.getMonth() + "-" + currentdate.getFullYear() + "_" + currentdate.getHours() + ":" + currentdate.getMinutes()
+const date = currentdate.getDate() + "-" + (currentdate.getMonth()+1) + "-" + currentdate.getFullYear() + "_" + currentdate.getHours() + ":" + currentdate.getMinutes()
 
 app.post('/create', (req, res) => {
     fs.writeFile(`./file-system/${date}.txt`, `${currentdate.toLocaleString()}`, (err, data) => {
@@ -11,6 +11,7 @@ app.post('/create', (req, res) => {
             return res.send({ message: "File not created", err })
         }
         res.send({ message: "File created successfully" })
+        console.log("Data: ",data)
     })
 })
 
